@@ -2,8 +2,7 @@
 
 import os
 import logging
-from sqlalchemy import create_engine, text
-from sqlalchemy.exc import SQLAlchemyError
+import yaml
 
 # Setup logging
 logging.basicConfig(
@@ -16,3 +15,11 @@ logging.basicConfig(
 
 DATA_FILE = '/data/data.yaml'
 OUTPUT_FILE = '/data/result.txt'
+
+with open("/data/data.yaml", 'r') as file:
+  data = yaml.load(file, Loader=yaml.FullLoader)
+
+data[0]['test'] = 'MTG'
+
+with open('/data/result.txt', 'w') as file:
+  file.write(yaml.dump(data, default_flow_style=None, width=70))

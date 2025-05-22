@@ -13,6 +13,7 @@ process runPythonExample {
 
     input:
     path data_file
+    path query_py
 
     output:
     path 'result.txt', emit: result
@@ -21,11 +22,12 @@ process runPythonExample {
     """
     mkdir -p /data
     cp ${data_file} /data/data.yaml
-    python3 /app/query.py
+    pip3 install pyyaml
+    python3 ${query_py}
     cp /data/result.txt result.txt
     """
 }
 
 workflow {
-    runPythonExample(file(params.data_file))
+    runPythonExample(file(params.data_file), file('query.py'))
 }

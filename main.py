@@ -1,14 +1,17 @@
 from typing import List, Dict
 import os
+
 import yaml
+
 
 def get_input_files(ucdm: List[Dict[str, str]], parameters: Dict[str, str]) -> Dict[str, str]:
     folder_path = os.path.dirname(os.path.abspath(__file__))
 
     return {
-        "data.yaml": yaml.dump(ucdm),
         "main.nf": file_get_contents(folder_path + '/main.nf'),
-        "nextflow.config": file_get_contents("nextflow.config"),
+        "query.py": file_get_contents(folder_path + '/query.py'),
+        "data.yaml": yaml.dump(ucdm),
+        "nextflow.config": file_get_contents('nextflow.config')
     }
 
 
